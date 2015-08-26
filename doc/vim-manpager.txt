@@ -38,7 +38,8 @@ Interface			|vim-manpager-interface|
 ==============================================================================
 INTRODUCTION					*vim-manpager-introduction*
 
-Use Vim as a MANPAGER
+Use Vim as a MANPAGER.
+See lambdalisue/vim-pager for PAGER.
 
 ==============================================================================
 INSTALL						*vim-manpager-install*
@@ -68,7 +69,7 @@ USAGE						*vim-manpager-usage*
 
 Add MANPAGER environment variable as
 >
-	$ export MANPAGER="vim -c MANPAGER! -"
+	$ export MANPAGER="vim -c MANPAGER -"
 <
 Then 'man' command will use Vim as a MANPAGER.
 
@@ -79,10 +80,8 @@ INTERFACE					*vim-manpager-interface*
 ------------------------------------------------------------------------------
 COMMANDS					*vim-manpager-interface-commands*
 
-:MANPAGER[!]					*:MANPAGER*
+:MANPAGER			   				*:MANPAGER*
 
-	Enable MANPAGER mode.
-	It will also set the |filetype| of the current buffer to man if a
-	bang (!) is used.
+	Enable MANPAGER mode on the current buffer.
 
 vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl

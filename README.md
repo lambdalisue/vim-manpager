@@ -1,13 +1,14 @@
 vim-manpager
 ===============================================================================
 *vim-manpager* is plugin to use Vim as a MANPAGER.
+See [lambdalisue/vim-pager](https://github.com/lambdalisue/vim-pager) for PAGER.
 
 Install
 -------------------------------------------------------------------------------
 
 ```vim
 " Vundle.vim
-Plugin 'lambdalisue/vim-gita'
+Plugin 'lambdalisue/vim-manpager'
 
 " neobundle.vim
 NeoBundle 'lambdalisue/vim-manpager'
@@ -24,7 +25,7 @@ Usage
 -------------------------------------------------------------------------------
 
 ```
-$ export MANPAGER="vim -c MANPAGER! -"
+$ export MANPAGER="vim -c MANPAGER -"
 $ man git
 ```
 

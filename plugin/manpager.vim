@@ -14,23 +14,13 @@ function! s:remove_backspaces() abort " {{{
   let &l:modified = saved_modified
 endfunction " }}}
 
-function! manpager#enable(bang) abort " {{{
-  augroup vim-manpager-ac
-    autocmd! *
-    autocmd FileType man call s:remove_backspaces()
-  augroup END
-  if a:bang ==# '!'
-    setfiletype man
-    setlocal nomodified
-  endif
-endfunction " }}}
-function! manpager#disable() abort " {{{
-  augroup vim-manpager-ac
-    autocmd! *
-  augroup END
+function! manpager#enable() abort " {{{
+  call s:remove_backspaces()
+  setfiletype man
+  setlocal nomodified
 endfunction " }}}
 
-command! -nargs=0 -bang MANPAGER call manpager#enable(<q-bang>)
+command! -nargs=0 MANPAGER call manpager#enable()
 
 let &cpo = s:save_cpo
 " vim:set et ts=2 sts=2 sw=2 tw=0 fdm=marker:
