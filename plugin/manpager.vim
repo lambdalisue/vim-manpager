@@ -5,8 +5,9 @@ function! s:remove_backspaces() abort " {{{
   let saved_modifiable = &l:modifiable
   let saved_readonly = &l:readonly
   let saved_modified = &l:modified
+  setl modifiable noreadonly
   let saved_pos = getpos('.')
-  keepjumps silent :%s/.//g
+  keepjumps :%s/.//ge
   call setpos('.', saved_pos)
   let &l:modifiable = saved_modifiable
   let &l:readonly = saved_readonly
@@ -20,6 +21,7 @@ function! manpager#enable(bang) abort " {{{
   augroup END
   if a:bang ==# '!'
     setfiletype man
+    setlocal nomodified
   endif
 endfunction " }}}
 function! manpager#disable() abort " {{{
