@@ -3,7 +3,7 @@ vim-manpager
 *vim-manpager* is plugin to use Vim as a MANPAGER.
 See [lambdalisue/vim-pager](https://github.com/lambdalisue/vim-pager) for PAGER.
 
-![Screencast](http://g.recordit.co/pD8mPPxt2n.gif)
+![Screencast](http://g.recordit.co/nnvpuIKOKK.gif)
 
 
 Install
