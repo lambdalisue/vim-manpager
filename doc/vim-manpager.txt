@@ -73,6 +73,21 @@ Add MANPAGER environment variable as
 <
 Then 'man' command will use Vim as a MANPAGER.
 
+In Vim, you can use |:Man| command to open a man page (the plugin overwrite the
+default |:Man| command defined in default ftplugin/man.vim to improve the
+behavior)
+
+>
+	:Man git
+<
+
+In man buffer, you can use the following keymaps
+
+Ctrl-]	Jump to the manual page for the word under the cursor.
+]c	Jump to the next jump reference
+[c	Jump to the previous jump reference
+q	Close the manual page
+
 
 ==============================================================================
 INTERFACE					*vim-manpager-interface*
@@ -83,5 +98,13 @@ COMMANDS					*vim-manpager-interface-commands*
 :MANPAGER			   				*:MANPAGER*
 
 	Enable MANPAGER mode on the current buffer.
+
+:Man {section} {page}						*:Man-improved*
+:Man {page}
+:Man
+
+	Open a manual page of {page}. If no {page} is specified, the word
+	under the cursor will be used.
+	It overwrite the default |:Man| command to improve the behavior.
 
 vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl

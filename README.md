@@ -24,11 +24,27 @@ NeoBundleLazy 'lambdalisue/vim-manpager', {
 Usage
 -------------------------------------------------------------------------------
 
+To open vim via `man` command, use the following settings in your shell.
+
 ```
 $ export MANPAGER="vim -c MANPAGER -"
 $ man git
 ```
 
+In Vim, you can use `Man` command to open a man page (the plugin overwrite the
+default `Man` command defined in default `ftplugin/man.vim` to improve the
+behavior)
+
+```
+:Man git
+```
+
+In man buffer, you can use the following keymaps
+
+- `Ctrl-]` Jump to the manual page for the word under the cursor.
+- `]c` Jump to the next jump reference
+- `[c` Jump to the previous jump reference
+- `q` Close the manual page
 
 License
 -------------------------------------------------------------------------------

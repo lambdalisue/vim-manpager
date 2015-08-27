@@ -1,26 +1,25 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
-function! s:remove_backspaces() abort " {{{
-  let saved_modifiable = &l:modifiable
-  let saved_readonly = &l:readonly
-  let saved_modified = &l:modified
-  setl modifiable noreadonly
-  let saved_pos = getpos('.')
-  keepjumps :%s/.//ge
-  call setpos('.', saved_pos)
-  let &l:modifiable = saved_modifiable
-  let &l:readonly = saved_readonly
-  let &l:modified = saved_modified
-endfunction " }}}
-
-function! manpager#enable() abort " {{{
-  call s:remove_backspaces()
+function! s:MANPAGER() abort
+  " the content contains ^H if the content is passed from man via stdin
+  call manpager#manpagerlize()
   setfiletype man
   setlocal nomodified
-endfunction " }}}
+endfunction
+function! s:MAN(...) abort
+  let sect = get(a:000, 0, '')
+  let page = get(a:000, 1, sect)
+  let sect = sect ==# page ? '' : sect
+  if empty(page)
+    call manpager#open('', expand('<cword>'))
+  else
+    call manpager#open(sect, page)
+  endif
+endfunction
 
-command! -nargs=0 MANPAGER call manpager#enable()
+command! -nargs=0 MANPAGER call s:MANPAGER()
+command! -nargs=+ Man      call s:MAN(<f-args>)
 
 let &cpo = s:save_cpo
 " vim:set et ts=2 sts=2 sw=2 tw=0 fdm=marker:
