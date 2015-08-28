@@ -16,7 +16,7 @@ function! s:args(section, page) abort " {{{
 endfunction " }}}
 function! s:remove_backspaces() abort " {{{
   let saved_pos = getpos('.')
-  :%s/.//ge
+  :%s/.//ge
   keepjump call setpos('.', saved_pos)
 endfunction " }}}
 function! s:find_jump(flag, ...) abort " {{{
