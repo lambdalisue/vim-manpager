@@ -80,13 +80,26 @@ behavior)
 >
 	:Man git
 <
-
+							*vim-manpager-keymap*
 In man buffer, you can use the following keymaps
 
-Ctrl-]	Jump to the manual page for the word under the cursor.
-]c	Jump to the next jump reference
-[c	Jump to the previous jump reference
-q	Close the manual page
+*<Plug>(manpager-open)*
+K		Open the manual page for the word uner the cursor
+Enter		Open the manual page for the word uner the cursor
+Ctrl-]		Open the manual page for the word uner the cursor
+2-LeftMouse	Open the manual page for the word uner the cursor
+*<Plug>(manpager-open-next)*
+Ctrl-n		Open next manual page in the history
+Tab		Open next manual page in the history
+*<Plug>(manpager-open-previous)*
+Ctrl-p		Open previous manual page in the history
+Shift-Tab	Open previous manual page in the history
+*<Plug>(manpager-next-keyword)*
+]t		Find next keyword and move the cursor onto
+*<Plug>(manpager-previous-keyword)*
+[t		Find previous keyword and move the cursor onto
+*<Plug>(manpager-close)*
+q		Close the manual page
 
 
 ==============================================================================
@@ -98,6 +111,8 @@ COMMANDS					*vim-manpager-interface-commands*
 :MANPAGER			   				*:MANPAGER*
 
 	Enable MANPAGER mode on the current buffer.
+	It automatically remove unwilling backspace characters (^H) from the
+	current buffer and turn several local settings on.
 
 :Man {section} {page}						*:Man-improved*
 :Man {page}
