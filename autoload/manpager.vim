@@ -19,7 +19,7 @@ function! s:remove_backspaces() abort " {{{
   :%s/.//ge
   keepjump call setpos('.', saved_pos)
 endfunction " }}}
-function! s:find_jump(flag, ...) abort " {{{
+function! s:find_keyword(flag, ...) abort " {{{
   let saved_pos = getpos('.')
   let pattern = '\w\+\%((\d\+)\)'
   while search(pattern, a:flag) > 0
@@ -28,7 +28,7 @@ function! s:find_jump(flag, ...) abort " {{{
       return
     endif
   endwhile
-  let wrapscan = get(a:000, 0, g:manpager#jump_wrapscan)
+  let wrapscan = get(a:000, 0, g:manpager#wrapscan)
   if wrapscan
     keepjump silent execute a:flag =~# '^b' ? 'normal GG' : 'normal gg'
     while search(pattern, a:flag, saved_pos[1]) > 0
@@ -77,12 +77,13 @@ function! manpager#open(section, page) abort " {{{
   setlocal nomodifiable
   setlocal nomodified
   setfiletype man
+  call manpager#history#add()
 endfunction " }}}
-function! manpager#find_next_jump() abort " {{{
-  call s:find_jump('W')
+function! manpager#find_next_keyword() abort " {{{
+  call s:find_keyword('W')
 endfunction " }}}
-function! manpager#find_previous_jump() abort " {{{
-  call s:find_jump('bW')
+function! manpager#find_previous_keyword() abort " {{{
+  call s:find_keyword('bW')
 endfunction " }}}
 function! manpager#manpagerlize() abort " {{{
   setlocal buftype=nofile noswapfile nobuflisted
@@ -92,6 +93,7 @@ function! manpager#manpagerlize() abort " {{{
   setlocal nomodified
   setfiletype man
   call s:b.add(bufnr('%'))
+  call s:get_history().add()
 endfunction " }}}
 
 
@@ -101,7 +103,7 @@ let s:default_settings = {
       \ 'man_find_arg': '-w',
       \ 'buffer_opener': 'new',
       \ 'buffer_range': 'tabpage',
-      \ 'jump_wrapscan': 1,
+      \ 'wrapscan': 1,
       \}
 function! s:init() abort " {{{
   for [key, value] in items(s:default_settings)
