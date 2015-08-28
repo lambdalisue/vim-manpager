@@ -93,7 +93,7 @@ function! manpager#manpagerlize() abort " {{{
   setlocal nomodified
   setfiletype man
   call s:b.add(bufnr('%'))
-  call s:get_history().add()
+  call manpager#history#add()
 endfunction " }}}
 
 
