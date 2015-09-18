@@ -19,6 +19,18 @@ function! s:remove_backspaces() abort " {{{
   :%s/.//ge
   keepjump call setpos('.', saved_pos)
 endfunction " }}}
+function! s:remove_ansi_sequences() abort " {{{
+  let saved_modifiable = &l:modifiable
+  let saved_readonly = &l:readonly
+  let saved_modified = &l:modified
+  setl modifiable noreadonly
+  let saved_pos = getpos('.')
+  keepjumps :%s/\v\e\[%(%(\d;)?\d{1,2})?[mK]//ge
+  call setpos('.', saved_pos)
+  let &l:modifiable = saved_modifiable
+  let &l:readonly = saved_readonly
+  let &l:modified = saved_modified
+endfunction " }}}
 function! s:find_keyword(flag, ...) abort " {{{
   let saved_pos = getpos('.')
   let pattern = '\w\+\%((\d\+)\)'
@@ -89,6 +101,7 @@ function! manpager#manpagerlize() abort " {{{
   setlocal buftype=nofile noswapfile nobuflisted
   setlocal modifiable
   keepjumps call s:remove_backspaces()
+  keepjumps call s:remove_ansi_sequences()
   setlocal nomodifiable
   setlocal nomodified
   setfiletype man
