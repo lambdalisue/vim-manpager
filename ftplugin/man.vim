@@ -16,17 +16,17 @@ nnoremap <buffer><silent> <Plug>(manpager-open-next)        :<C-u>call manpager#
 nnoremap <buffer><silent> <Plug>(manpager-open-previous)    :<C-u>call manpager#history#previous()<CR>
 nnoremap <buffer><silent> <Plug>(manpager-close) :<C-u>q<CR>
 
-nmap <buffer> K             <Plug>(manpager-open)
-nmap <buffer> <CR>          <Plug>(manpager-open)
-nmap <buffer> <C-]>         <Plug>(manpager-open)
-nmap <buffer> <2-LeftMouse> <Plug>(manpager-open)
-nmap <buffer> <C-n>         <Plug>(manpager-open-next)
-nmap <buffer> <Tab>         <Plug>(manpager-open-next)
-nmap <buffer> <C-p>         <Plug>(manpager-open-previous)
-nmap <buffer> <S-Tab>       <Plug>(manpager-open-previous)
+nmap <buffer><nowait> K             <Plug>(manpager-open)
+nmap <buffer><nowait> <CR>          <Plug>(manpager-open)
+nmap <buffer><nowait> <C-]>         <Plug>(manpager-open)
+nmap <buffer><nowait> <2-LeftMouse> <Plug>(manpager-open)
+nmap <buffer><nowait> <C-n>         <Plug>(manpager-open-next)
+nmap <buffer><nowait> <Tab>         <Plug>(manpager-open-next)
+nmap <buffer><nowait> <C-p>         <Plug>(manpager-open-previous)
+nmap <buffer><nowait> <S-Tab>       <Plug>(manpager-open-previous)
 
-nmap <buffer> ]t            <Plug>(manpager-next-keyword)
-nmap <buffer> [t            <Plug>(manpager-previous-keyword)
-nmap <buffer> q             <Plug>(manpager-close)
+nmap <buffer><nowait> ]t            <Plug>(manpager-next-keyword)
+nmap <buffer><nowait> [t            <Plug>(manpager-previous-keyword)
+nmap <buffer><nowait> q             <Plug>(manpager-close)
 
 let b:undo_ftplugin = 'setlocal iskeyword<'
