@@ -56,23 +56,29 @@ endfunction " }}}
 
 function! manpager#load(section, page) abort " {{{
   let args = extend(
-        \ [g:manpager#man_executable, '--pager='],
+        \ split(g:manpager#man_executable, '\v\s+'),
         \ s:args(a:section, a:page),
         \)
   let stdout = s:R.system(args)
   let status = s:R.get_last_status()
   return {
+        \ 'args': args,
         \ 'stdout': stdout,
         \ 'status': status,
         \}
 endfunction " }}}
 function! manpager#open(section, page) abort " {{{
-  let name = empty(a:section) ? a:page : printf('%s(%s)', a:page, a:section)
-  let result = manpager#load(a:section, a:page)
+  let page = substitute(a:page, '\s', '-', 'g')
+  let name = empty(a:section) ? page : printf('%s(%s)', page, a:section)
+  let result = manpager#load(a:section, page)
   if result.status
+    if g:manpager#debug
+      echo join(result.args, ' ')
+    endif
     echohl Error
     echo printf('man page for "%s" could not be loaded.', name)
     echohl None
+    echo result.stdout
     return result.status
   endif
   let contents = split(result.stdout, '\v\r?\n')
@@ -86,6 +92,8 @@ function! manpager#open(section, page) abort " {{{
   setlocal modifiable
   keepjumps silent execute 'norm 1GdG'
   keepjumps silent call setline(1, contents)
+  keepjumps call s:remove_backspaces()
+  keepjumps call s:remove_ansi_sequences()
   setlocal nomodifiable
   setlocal nomodified
   setfiletype man
@@ -111,7 +119,8 @@ endfunction " }}}
 
 
 let s:default_settings = {
-      \ 'man_executable': 'man',
+      \ 'debug': 0,
+      \ 'man_executable': has('mac') ? 'man -P cat' : 'man --pager=',
       \ 'man_sect_arg': '',
       \ 'man_find_arg': '-w',
       \ 'buffer_opener': 'new',
@@ -120,7 +129,9 @@ let s:default_settings = {
       \}
 function! s:init() abort " {{{
   for [key, value] in items(s:default_settings)
-    execute printf('let g:manpager#%s = %s', key, string(value))
+    if !exists(printf('g:manpager#%s', key))
+      execute printf('let g:manpager#%s = %s', key, string(value))
+    endif
   endfor
 endfunction " }}}
 call s:init()

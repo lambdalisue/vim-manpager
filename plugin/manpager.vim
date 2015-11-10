@@ -19,7 +19,7 @@ function! s:MAN(...) abort
 endfunction
 
 command! -nargs=0 MANPAGER call s:MANPAGER()
-command! -nargs=+ Man      call s:MAN(<f-args>)
+command! -nargs=+ Man      call s:MAN(<q-args>)
 
 let &cpo = s:save_cpo
 " vim:set et ts=2 sts=2 sw=2 tw=0 fdm=marker:
