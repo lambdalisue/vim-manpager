@@ -3,9 +3,10 @@ set cpo&vim
 
 function! s:MANPAGER() abort
   " the content contains ^H if the content is passed from man via stdin
+  if !empty($MAN_PN)
+    silent file $MAN_PN
+  endif
   call manpager#manpagerlize()
-  setfiletype man
-  setlocal nomodified
 endfunction
 function! s:MAN(...) abort
   let sect = get(a:000, 0, '')
