@@ -117,6 +117,16 @@ function! manpager#manpagerlize() abort " {{{
   call manpager#history#add()
 endfunction " }}}
 
+function! manpager#get_visual_selection() abort " {{{
+  " From https://github.com/xolox/vim-notes/blob/d30601243d989c8df11956f0637106d7f255a051/autoload/xolox/notes.vim#L249
+  let [lnum1, col1] = getpos("'<")[1:2]
+  let [lnum2, col2] = getpos("'>")[1:2]
+  let lines = getline(lnum1, lnum2)
+  let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
+  let lines[0] = lines[0][col1 - 1:]
+  return join(lines, ' ')
+endfunction
+" }}}
 
 let s:default_settings = {
       \ 'debug': 0,
