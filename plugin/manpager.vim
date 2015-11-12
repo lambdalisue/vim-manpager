@@ -10,12 +10,22 @@ function! s:MANPAGER() abort
 endfunction
 function! s:MAN(...) abort
   if !a:0
-    call manpager#open('', expand('<cword>'))
+    let cWORD = expand('<cWORD>')
+    let pagesect_pattern = '\v[a-zA-Z-]+\(\w+\)'
+    let sect = ''
+    let page = matchstr(cWORD, pagesect_pattern)
   else
-    let sect = a:1 =~ '\v\d+(\+\d+|\w+)?' ? a:1 : ''
+    let sect = (a:1 =~ '\v^((\d+(\+\d+|\w+)?)|(\w$))$' ? a:1 : '')
     let page = join(a:000[ (empty(sect) ? 0 : 1) :], '-')
-    call manpager#open(sect, page)
   endif
+
+  if empty(sect)
+    let sectpattern = '\v\(\w+\)$'
+    let sect = substitute(matchstr(page, sectpattern),'\v[()]','','g')
+    let page = substitute(page, sectpattern,'','')
+  endif
+
+  call manpager#open(sect, page)
 endfunction
 
 command! -nargs=0 MANPAGER call s:MANPAGER()
