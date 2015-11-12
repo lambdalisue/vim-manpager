@@ -9,18 +9,17 @@ function! s:MANPAGER() abort
   call manpager#manpagerlize()
 endfunction
 function! s:MAN(...) abort
-  let sect = get(a:000, 0, '')
-  let page = get(a:000, 1, sect)
-  let sect = sect ==# page ? '' : sect
-  if empty(page)
+  if !a:0
     call manpager#open('', expand('<cword>'))
   else
+    let sect = a:1 =~ '\v\d+(\+\d+|\w+)?' ? a:1 : ''
+    let page = join(a:000[ (empty(sect) ? 0 : 1) :], '-')
     call manpager#open(sect, page)
   endif
 endfunction
 
 command! -nargs=0 MANPAGER call s:MANPAGER()
-command! -nargs=+ Man      call s:MAN(<q-args>)
+command! -nargs=* Man      call s:MAN(<f-args>)
 
 let &cpo = s:save_cpo
 " vim:set et ts=2 sts=2 sw=2 tw=0 fdm=marker:
