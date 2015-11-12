@@ -12,11 +12,13 @@ setlocal iskeyword+=\.,-
 nnoremap <buffer><silent> <Plug>(manpager-next-keyword)     :<C-u>call manpager#find_next_keyword()<CR>
 nnoremap <buffer><silent> <Plug>(manpager-previous-keyword) :<C-u>call manpager#find_previous_keyword()<CR>
 nnoremap <buffer><silent> <Plug>(manpager-open)             :<C-u>call manpager#open('', expand('<cword>'))<CR>
+xnoremap <buffer><silent> <Plug>(manpager-open)             :<C-u>call manpager#open('', '<C-R>=manpager#get_visual_selection()<CR>')<CR>
 nnoremap <buffer><silent> <Plug>(manpager-open-next)        :<C-u>call manpager#history#next()<CR>
 nnoremap <buffer><silent> <Plug>(manpager-open-previous)    :<C-u>call manpager#history#previous()<CR>
 nnoremap <buffer><silent> <Plug>(manpager-close) :<C-u>q<CR>
 
 nmap <buffer><nowait> K             <Plug>(manpager-open)
+xmap <buffer><nowait> K             <Plug>(manpager-open)
 nmap <buffer><nowait> <CR>          <Plug>(manpager-open)
 nmap <buffer><nowait> <C-]>         <Plug>(manpager-open)
 nmap <buffer><nowait> <2-LeftMouse> <Plug>(manpager-open)
