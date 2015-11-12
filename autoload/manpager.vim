@@ -68,9 +68,8 @@ function! manpager#load(section, page) abort " {{{
         \}
 endfunction " }}}
 function! manpager#open(section, page) abort " {{{
-  let page = substitute(a:page, '\s', '-', 'g')
-  let name = empty(a:section) ? page : printf('%s(%s)', page, a:section)
-  let result = manpager#load(a:section, page)
+  let name = empty(a:section) ? a:page : printf('%s(%s)', a:page, a:section)
+  let result = manpager#load(a:section, a:page)
   if result.status
     if g:manpager#debug
       echo join(result.args, ' ')
