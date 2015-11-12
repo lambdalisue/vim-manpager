@@ -9,20 +9,22 @@ function! s:MANPAGER() abort
   call manpager#manpagerlize()
 endfunction
 function! s:MAN(...) abort
+  let sect_pattern = '\v((\d+(\+\d+|\w+)*)|(\w))'
+  let psect_pattern = '\v\(' . sect_pattern . '\v\)'
+  let page_pattern = '\v[a-zA-Z][0-9a-zA-Z-]+'
+  let pagesect_pattern = page_pattern.psect_pattern
   if !a:0
     let cWORD = expand('<cWORD>')
-    let pagesect_pattern = '\v[a-zA-Z-]+\(\w+\)'
     let sect = ''
     let page = matchstr(cWORD, pagesect_pattern)
   else
-    let sect = (a:1 =~ '\v^((\d+(\+\d+|\w+)?)|(\w$))$' ? a:1 : '')
+    let sect = (a:1 =~ '\v^'.sect_pattern.'\v$' ? a:1 : '')
     let page = join(a:000[ (empty(sect) ? 0 : 1) :], '-')
   endif
 
   if empty(sect)
-    let sectpattern = '\v\(\w+\)$'
-    let sect = substitute(matchstr(page, sectpattern),'\v[()]','','g')
-    let page = substitute(page, sectpattern,'','')
+    let sect = substitute(matchstr(page, psect_pattern),'\v[()]','','g')
+    let page = substitute(page, psect_pattern,'','')
   endif
 
   call manpager#open(sect, page)
