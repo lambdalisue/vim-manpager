@@ -12,8 +12,15 @@ function! s:MAN(...) abort
   if !a:0
     call manpager#open('', expand('<cword>'))
   else
-    let sect = a:1 =~ '\v\d+(\+\d+|\w+)?' ? a:1 : ''
+    let sect = (a:1 =~ '\v^((\d+(\+\d+|\w+)?)|(\w$))$' ? a:1 : '')
     let page = join(a:000[ (empty(sect) ? 0 : 1) :], '-')
+
+    if empty(sect)
+      let sectpattern = '\v\(\w+\)$'
+      let sect = substitute(matchstr(page, sectpattern),'\v[()]','','g')
+      let page = substitute(page, sectpattern,'','')
+    endif
+
     call manpager#open(sect, page)
   endif
 endfunction
