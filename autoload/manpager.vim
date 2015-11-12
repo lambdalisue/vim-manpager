@@ -11,7 +11,7 @@ function! s:args(section, page) abort " {{{
   if empty(a:section)
     return [a:page]
   else
-    return [g:manpager#man_sect_arg, a:section, a:page]
+    return [a:section, a:page]
   endif
 endfunction " }}}
 function! s:remove_backspaces() abort " {{{
