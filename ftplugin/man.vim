@@ -7,6 +7,7 @@ setlocal tabstop=8
 setlocal nolist
 setlocal nospell
 setlocal nocursorline
+setlocal nocursorcolumn
 setlocal iskeyword+=\.,-
 
 nnoremap <buffer><silent> <Plug>(manpager-next-keyword)     :<C-u>call manpager#find_next_keyword()<CR>
