@@ -1,9 +1,8 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
-let s:V = vital#of('manpager')
-let s:Process = s:V.import('Process')
-let s:BufferManager = s:V.import('Vim.BufferManager')
+let s:Process = vital#manpager#import('Process')
+let s:BufferManager = vital#manpager#import('Vim.BufferManager')
 let s:buffer_manager = s:BufferManager.new()
 let s:is_windows = has('win16') || has('win32') || has('win64')
 
