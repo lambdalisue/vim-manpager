@@ -8,6 +8,7 @@ function! s:MANPAGER() abort
   endif
   call manpager#manpagerlize()
 endfunction
+
 function! s:MAN(...) abort
   let sect_pattern = '((\d+(\+\d+|\w+)*)|(\w))'
   let psect_pattern = '\v\(' . sect_pattern . '\)'

@@ -2,24 +2,26 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 let s:V = vital#of('manpager')
-let s:R = s:V.import('Process')
-let s:B = s:V.import('Vim.BufferManager')
-let s:b = s:B.new()
-let s:is_win = has('win16') || has('win32') || has('win64')
+let s:Process = s:V.import('Process')
+let s:BufferManager = s:V.import('Vim.BufferManager')
+let s:buffer_manager = s:BufferManager.new()
+let s:is_windows = has('win16') || has('win32') || has('win64')
 
-function! s:args(section, page) abort " {{{
+function! s:args(section, page) abort
   if empty(a:section)
     return [a:page]
   else
     return [a:section, a:page]
   endif
-endfunction " }}}
-function! s:remove_backspaces() abort " {{{
+endfunction
+
+function! s:remove_backspaces() abort
   let saved_pos = getpos('.')
   :%s/.//ge
   keepjump call setpos('.', saved_pos)
-endfunction " }}}
-function! s:remove_ansi_sequences() abort " {{{
+endfunction
+
+function! s:remove_ansi_sequences() abort
   let saved_modifiable = &l:modifiable
   let saved_readonly = &l:readonly
   let saved_modified = &l:modified
@@ -30,8 +32,9 @@ function! s:remove_ansi_sequences() abort " {{{
   let &l:modifiable = saved_modifiable
   let &l:readonly = saved_readonly
   let &l:modified = saved_modified
-endfunction " }}}
-function! s:find_keyword(flag, ...) abort " {{{
+endfunction
+
+function! s:find_keyword(flag, ...) abort
   let saved_pos = getpos('.')
   let pattern = '\w\+\%((\d\+)\)'
   while search(pattern, a:flag) > 0
@@ -52,22 +55,23 @@ function! s:find_keyword(flag, ...) abort " {{{
   endif
   " no available jump is found
   keepjump call setpos('.', saved_pos)
-endfunction " }}}
+endfunction
 
-function! manpager#load(section, page) abort " {{{
+function! manpager#load(section, page) abort
   let args = extend(
         \ split(g:manpager#man_executable, '\v\s+'),
         \ s:args(a:section, a:page),
         \)
-  let stdout = s:R.system(args)
-  let status = s:R.get_last_status()
+  let stdout = s:Process.system(args)
+  let status = s:Process.get_last_status()
   return {
         \ 'args': args,
         \ 'stdout': stdout,
         \ 'status': status,
         \}
-endfunction " }}}
-function! manpager#open(section, page) abort " {{{
+endfunction
+
+function! manpager#open(section, page) abort
   let name = empty(a:section) ? a:page : printf('%s(%s)', a:page, a:section)
   let result = manpager#load(a:section, a:page)
   if result.status
@@ -82,8 +86,8 @@ function! manpager#open(section, page) abort " {{{
   endif
   let contents = split(result.stdout, '\v\r?\n')
 
-  let bufname = join(['MAN', name], s:is_win ? '_' : ':')
-  call s:b.open(bufname, {
+  let bufname = join(['MAN', name], s:is_windows ? '_' : ':')
+  call s:buffer_manager.open(bufname, {
         \ 'opener': g:manpager#buffer_opener,
         \ 'range': g:manpager#buffer_range,
         \})
@@ -97,14 +101,17 @@ function! manpager#open(section, page) abort " {{{
   setlocal nomodified
   setfiletype man
   call manpager#history#add()
-endfunction " }}}
-function! manpager#find_next_keyword() abort " {{{
+endfunction
+
+function! manpager#find_next_keyword() abort
   call s:find_keyword('W')
-endfunction " }}}
-function! manpager#find_previous_keyword() abort " {{{
+endfunction
+
+function! manpager#find_previous_keyword() abort
   call s:find_keyword('bW')
-endfunction " }}}
-function! manpager#manpagerlize() abort " {{{
+endfunction
+
+function! manpager#manpagerlize() abort
   setlocal buftype=nofile noswapfile nobuflisted
   setlocal modifiable
   keepjumps call s:remove_backspaces()
@@ -112,11 +119,11 @@ function! manpager#manpagerlize() abort " {{{
   setlocal nomodifiable
   setlocal nomodified
   setfiletype man
-  call s:b.add(bufnr('%'))
+  call s:buffer_manager.add(bufnr('%'))
   call manpager#history#add()
-endfunction " }}}
+endfunction
 
-function! manpager#get_visual_selection() abort " {{{
+function! manpager#get_visual_selection() abort
   " From https://github.com/xolox/vim-notes/blob/d30601243d989c8df11956f0637106d7f255a051/autoload/xolox/notes.vim#L249
   let [lnum1, col1] = getpos("'<")[1:2]
   let [lnum2, col2] = getpos("'>")[1:2]
@@ -125,7 +132,7 @@ function! manpager#get_visual_selection() abort " {{{
   let lines[0] = lines[0][col1 - 1:]
   return join(lines, ' ')
 endfunction
-" }}}
+
 
 let s:default_settings = {
       \ 'debug': 0,
@@ -136,13 +143,13 @@ let s:default_settings = {
       \ 'buffer_range': 'tabpage',
       \ 'wrapscan': 1,
       \}
-function! s:init() abort " {{{
+function! s:init() abort
   for [key, value] in items(s:default_settings)
     if !exists(printf('g:manpager#%s', key))
       execute printf('let g:manpager#%s = %s', key, string(value))
     endif
   endfor
-endfunction " }}}
+endfunction
 call s:init()
 
 let &cpo = s:save_cpo
