@@ -89,10 +89,8 @@ Enter		Open the manual page for the word uner the cursor
 Ctrl-]		Open the manual page for the word uner the cursor
 2-LeftMouse	Open the manual page for the word uner the cursor
 *<Plug>(manpager-open-next)*
-Ctrl-n		Open next manual page in the history
 Tab		Open next manual page in the history
 *<Plug>(manpager-open-previous)*
-Ctrl-p		Open previous manual page in the history
 Shift-Tab	Open previous manual page in the history
 *<Plug>(manpager-next-keyword)*
 ]t		Find next keyword and move the cursor onto

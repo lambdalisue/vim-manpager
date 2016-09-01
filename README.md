@@ -46,12 +46,10 @@ behavior)
 In man buffer, you can use the following keymaps
 
 - `K`		Open the manual page for the word uner the cursor
-- `Enter`		Open the manual page for the word uner the cursor
-- `Ctrl-]`		Open the manual page for the word uner the cursor
+- `Enter`	Open the manual page for the word uner the cursor
+- `Ctrl-]`	Open the manual page for the word uner the cursor
 - `2-LeftMouse`	Open the manual page for the word uner the cursor
-- `Ctrl-n`		Open next manual page in the history
 - `Tab`		Open next manual page in the history
-- `Ctrl-p`		Open previous manual page in the history
 - `Shift-Tab`	Open previous manual page in the history
 - `]t`		Find next keyword and move the cursor onto
 - `[t`		Find previous keyword and move the cursor onto
