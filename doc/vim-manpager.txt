@@ -1,30 +1,10 @@
-*vim-manpager.txt*      A plugin to use Vim as a MANPAGER
+*vim-manpager.txt*			A plugin to use Vim as a MANPAGER
 
 Version: 0.1.0
-Author:  Alisue <lambdalisue@hashnote.net>		*vim-manpager-author*
+Author:  Alisue <lambdalisue@hashnote.net>
 Support: Vim 7.4 and above
 License: MIT license
 
-    Copyright (c) 2014 Alisue, hashnote.net
-
-    Permission is hereby granted, free of charge, to any person obtaining
-    a copy of this software and associated documentation files
-    (the "Software"), to deal in the Software without restriction,
-    including without limitation the rights to use, copy, modify, merge,
-    publish, distribute, sublicense, and/or sell copies of the Software,
-    and to permit persons to whom the Software is furnished to do so,
-    subject to the following conditions:
-
-    The above copyright notice and this permission notice shall be
-    included in all copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-    CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 =============================================================================
 CONTENTS					*vim-manpager-contents*
@@ -33,16 +13,18 @@ Introduction			|vim-manpager-introduction|
 Install				|vim-manpager-install|
 Usage				|vim-manpager-usage|
 Interface			|vim-manpager-interface|
-  Commands			|vim-manpager-interface-commands|
+  Command			|vim-manpager-command|
+
 
 ==============================================================================
-INTRODUCTION					*vim-manpager-introduction*
+INTRODUCTION				*vim-manpager-introduction*
 
 Use Vim as a MANPAGER.
 See lambdalisue/vim-pager for PAGER.
 
+
 ==============================================================================
-INSTALL						*vim-manpager-install*
+INSTALL					*vim-manpager-install*
 
 The repository (https://github.com/lambdalisue/vim-manpager) follow a standard
 directory structure thus you can use Vundle.vim, neobundle.vim, or other vim
@@ -65,7 +47,7 @@ your $VIM directory to enable the plugin.
 
 
 ==============================================================================
-USAGE						*vim-manpager-usage*
+USAGE					*vim-manpager-usage*
 
 Add MANPAGER environment variable as
 >
@@ -101,18 +83,18 @@ q		Close the manual page
 
 
 ==============================================================================
-INTERFACE					*vim-manpager-interface*
+INTERFACE				*vim-manpager-interface*
 
 ------------------------------------------------------------------------------
-COMMANDS					*vim-manpager-interface-commands*
+COMMAND					*vim-manpager-command*
 
-:MANPAGER			   				*:MANPAGER*
+:MANPAGER			   			*:MANPAGER*
 
 	Enable MANPAGER mode on the current buffer.
 	It automatically remove unwilling backspace characters (^H) from the
 	current buffer and turn several local settings on.
 
-:Man {section} {page}						*:Man-improved*
+:Man {section} {page}					*:Man-improved*
 :Man {page}
 :Man
 
@@ -120,4 +102,6 @@ COMMANDS					*vim-manpager-interface-commands*
 	under the cursor will be used.
 	It overwrite the default |:Man| command to improve the behavior.
 
+
+==============================================================================
 vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl
