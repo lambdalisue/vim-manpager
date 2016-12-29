@@ -98,6 +98,8 @@ function! manpager#open(section, page) abort
   keepjumps call s:remove_ansi_sequences()
   setlocal nomodifiable
   setlocal nomodified
+  " To fix "Error detected while processing function man#init_pager: in neovim
+  let b:man_sect = ''
   setfiletype man
   call manpager#history#add()
 endfunction
