@@ -15,22 +15,25 @@ function! s:args(section, page) abort
 endfunction
 
 function! s:remove_backspaces() abort
+  let saved_modifiable = &l:modifiable
+  let saved_modified = &l:modified
   let saved_pos = getpos('.')
-  :%s/.//ge
-  keepjump call setpos('.', saved_pos)
+  setlocal modifiable
+  silent keepjumps execute '%s/.//ge'
+  let &l:modifiable = saved_modifiable
+  let &l:modified = saved_modified
+  call setpos('.', saved_pos)
 endfunction
 
 function! s:remove_ansi_sequences() abort
   let saved_modifiable = &l:modifiable
-  let saved_readonly = &l:readonly
   let saved_modified = &l:modified
-  setl modifiable noreadonly
   let saved_pos = getpos('.')
-  keepjumps :%s/\v\e\[%(%(\d;)?\d{1,2})?[mK]//ge
-  call setpos('.', saved_pos)
+  setlocal modifiable
+  silent keepjumps execute '%s/\v\e\[%(%(\d;)?\d{1,2})?[mK]//ge'
   let &l:modifiable = saved_modifiable
-  let &l:readonly = saved_readonly
   let &l:modified = saved_modified
+  call setpos('.', saved_pos)
 endfunction
 
 function! s:find_keyword(flag, ...) abort
@@ -44,7 +47,7 @@ function! s:find_keyword(flag, ...) abort
   endwhile
   let wrapscan = get(a:000, 0, g:manpager#wrapscan)
   if wrapscan
-    keepjump silent execute a:flag =~# '^b' ? 'normal GG' : 'normal gg'
+    keepjump execute a:flag =~# '^b' ? 'normal! GG' : 'normal! gg'
     while search(pattern, a:flag, saved_pos[1]) > 0
       let name = synIDattr(synID(line('.'), col('.'), 0), 'name')
       if name ==# 'manReference'
@@ -53,7 +56,7 @@ function! s:find_keyword(flag, ...) abort
     endwhile
   endif
   " no available jump is found
-  keepjump call setpos('.', saved_pos)
+  call setpos('.', saved_pos)
 endfunction
 
 function! manpager#load(section, page) abort
@@ -92,15 +95,15 @@ function! manpager#open(section, page) abort
         \})
   setlocal buftype=nofile noswapfile nobuflisted
   setlocal modifiable
-  keepjumps silent execute 'norm 1GdG'
-  keepjumps silent call setline(1, contents)
-  keepjumps call s:remove_backspaces()
-  keepjumps call s:remove_ansi_sequences()
-  setlocal nomodifiable
-  setlocal nomodified
+  normal! 1GdG
+  call setline(1, contents)
+  call s:remove_backspaces()
+  call s:remove_ansi_sequences()
   " To fix "Error detected while processing function man#init_pager: in neovim
   let b:man_sect = ''
-  setfiletype man
+  silent! setfiletype man
+  setlocal nomodifiable
+  setlocal nomodified
   call manpager#history#add()
 endfunction
 
@@ -115,11 +118,11 @@ endfunction
 function! manpager#manpagerlize() abort
   setlocal buftype=nofile noswapfile nobuflisted
   setlocal modifiable
-  keepjumps call s:remove_backspaces()
-  keepjumps call s:remove_ansi_sequences()
+  call s:remove_backspaces()
+  call s:remove_ansi_sequences()
+  silent! setfiletype man
   setlocal nomodifiable
   setlocal nomodified
-  setfiletype man
   call s:buffer_manager.add(bufnr('%'))
   call manpager#history#add()
 endfunction
