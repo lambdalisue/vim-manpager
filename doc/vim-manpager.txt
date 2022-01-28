@@ -14,6 +14,7 @@ Install				|vim-manpager-install|
 Usage				|vim-manpager-usage|
 Interface			|vim-manpager-interface|
   Command			|vim-manpager-command|
+Configuration			|vim-manpager-configuration|
 
 
 ==============================================================================
@@ -102,6 +103,31 @@ COMMAND					*vim-manpager-command*
 	under the cursor will be used.
 	It overwrite the default |:Man| command to improve the behavior.
 
+==============================================================================
+CONFIGURATION				*vim-manpager-configuration*
 
+
+					*g:manpager_disable_default_mappings*
+
+	Type: |Number|
+	Default: `0`
+
+	Whether to disable default mappings for |vim-manpager-keymap|. The
+	default mappings are defined as follows:
+>
+	nmap <buffer><nowait> K             <Plug>(manpager-open)
+	nmap <buffer><nowait> <CR>          <Plug>(manpager-open)
+	nmap <buffer><nowait> <C-]>         <Plug>(manpager-open)
+	nmap <buffer><nowait> <2-LeftMouse> <Plug>(manpager-open)
+	xmap <buffer><nowait> K             <Plug>(manpager-open)
+	xmap <buffer><nowait> <CR>          <Plug>(manpager-open)
+	xmap <buffer><nowait> <C-]>         <Plug>(manpager-open)
+	xmap <buffer><nowait> <2-LeftMouse> <Plug>(manpager-open)
+	nmap <buffer><nowait> <Tab>         <Plug>(manpager-open-next)
+	nmap <buffer><nowait> <S-Tab>       <Plug>(manpager-open-previous)
+	nmap <buffer><nowait> ]t            <Plug>(manpager-next-keyword)
+	nmap <buffer><nowait> [t            <Plug>(manpager-previous-keyword)
+	nmap <buffer><nowait> q             <Plug>(manpager-close)
+<
 ==============================================================================
 vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl
