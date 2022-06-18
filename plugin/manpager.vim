@@ -33,7 +33,15 @@ function! s:MAN(...) abort
   call manpager#open(sect, page)
 endfunction
 
-command! -nargs=0 MANPAGER call s:MANPAGER()
+" `plugin/manpager.vim` from $VIMRUNTIME defines a `MANPAGER` command, so we
+" can not use the same name here.
+"
+" TODO Talk to Enno Nagel <ennonagel+vim@gmail.com>, who is the manpager.vim
+" maintainer, to see if there is a way to provide a custmization point,
+" allowing plugins to replace the stock MANPAGER implementation?
+"
+" command! -nargs=0 MANPAGER call s:MANPAGER()
+command! -nargs=0 MANPAGER2 call s:MANPAGER()
 command! -nargs=* Man      call s:MAN(<f-args>)
 
 let &cpo = s:save_cpo

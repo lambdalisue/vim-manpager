@@ -25,7 +25,7 @@ NeoBundle 'lambdalisue/vim-manpager'
 " neobundle.vim (Lazy)
 NeoBundleLazy 'lambdalisue/vim-manpager', {
         \ 'autoload': {
-        \   'commands': 'MANPAGER',
+        \   'commands': 'MANPAGER2',
         \}}
 ```
 
@@ -36,7 +36,7 @@ Usage
 To open vim via `man` command, use the following settings in your shell.
 
 ```
-$ export MANPAGER="vim -c MANPAGER -"
+$ export MANPAGER="vim -c MANPAGER2 -"
 $ man git
 ```
 
