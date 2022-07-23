@@ -33,7 +33,7 @@ function! s:MAN(...) abort
   call manpager#open(sect, page)
 endfunction
 
-command! -nargs=0 MANPAGER call s:MANPAGER()
+command! -nargs=0 ASMANPAGER call s:MANPAGER()
 command! -nargs=* Man      call s:MAN(<f-args>)
 
 let &cpo = s:save_cpo
