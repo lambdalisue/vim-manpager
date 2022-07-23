@@ -40,7 +40,7 @@ plugin manager to install |vim-manpager| like:
 	" neobundle.vim (Lazy)
 	NeoBundleLazy 'lambdalisue/vim-manpager', {
 		\ 'autoload': {
-		\   'commands': 'MANPAGER',
+		\   'commands': 'ASMANPAGER',
 		\}}
 <
 If you are not using any vim plugin manager, you can copy the repository to
@@ -52,7 +52,7 @@ USAGE					*vim-manpager-usage*
 
 Add MANPAGER environment variable as
 >
-	$ export MANPAGER="vim -c MANPAGER -"
+	$ export MANPAGER="vim -c ASMANPAGER -"
 <
 Then 'man' command will use Vim as a MANPAGER.
 
@@ -89,7 +89,7 @@ INTERFACE				*vim-manpager-interface*
 ------------------------------------------------------------------------------
 COMMAND					*vim-manpager-command*
 
-:MANPAGER			   			*:MANPAGER*
+:ASMANPAGER			   			*:ASMANPAGER*
 
 	Enable MANPAGER mode on the current buffer.
 	It automatically remove unwilling backspace characters (^H) from the
